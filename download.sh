@@ -12,6 +12,7 @@ OUTPUT_DIRECTORY=$2
 
 function download_file() {
   echo "download file...ARTIFACT:$ARTIFACT OUTPUT_DIRECTORY:$OUTPUT_DIRECTORY"
+  test -d $OUTPUT_DIRECTORY || mkdir -p $OUTPUT_DIRECTORY
   mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:copy -Dartifact=$ARTIFACT -DoutputDirectory=$OUTPUT_DIRECTORY -Dmdep.useBaseVersion=true
   echo "download complete..."
 }
