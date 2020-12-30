@@ -14,11 +14,11 @@ function kill_process() {
   echo "$SERVICE_NAME destroy started..."
 
   PID=`cat $PID_DIR/$PID_FILE 2>/dev/null`
-  if [ ! -z $PID ]; then
+  if [ -z $PID ]; then
+    echo "Not running (pidfile not found)"
+  else
     echo "shutting down $SERVICE_NAME. pid=$PID."
     # kill -9 $PID
-  else
-    echo "Not running (pidfile not found)"
   fi
 
   process_count=`ps aux | grep $IDENTIFIER | grep -v grep | wc -l`
@@ -43,4 +43,5 @@ function clear_pid() {
 }
 
 kill_process
+
 clear_pid
